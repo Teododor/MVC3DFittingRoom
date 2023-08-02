@@ -1,0 +1,100 @@
+nav {
+  height: auto;
+  display: flex;
+  background-color: grey;
+}
+
+ul.menu {
+  background-color: pink;
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+}
+ul.menu ul {
+  list-style-type: none;
+  z-index: 10;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  transform: scale(0.5, 0);
+  transform-origin: center;
+  opacity: 0;
+  font-family: Arial, sans-serif;
+  font-size: 1.2em;
+  background: linear-gradient(to right, pink, purple);
+}
+ul.menu ul li {
+  border: 1px solid black;
+  width: 150px;
+  height: 35px;
+  border-radius: 15px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+ul.menu a {
+  color: black;
+  text-decoration: none;
+  background-color: yellow;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.5s linear;
+}
+ul.menu > li {
+  height: 35px;
+  overflow: hidden;
+  line-height: 35px;
+  vertical-align: middle;
+  border: 1px;
+  width: 150px;
+  text-align: center;
+}
+ul.menu > li:hover {
+  overflow: visible;
+}
+ul.menu > li:hover ul {
+  height: 50%;
+  width: 50%;
+  animation-name: submenu-animation;
+  animation-duration: 0.4s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+ul.menu li a {
+  display: block;
+  height: 100%;
+}
+ul.menu li a:hover {
+  background-color: lightblue;
+}
+ul.menu li div:hover {
+  background-color: blueviolet;
+}
+
+@keyframes submenu-animation {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+    background: pink;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    color: black;
+  }
+  50% {
+    transform: scaleY(1.15) skewX(1.75deg) rotate(1.75deg);
+    opacity: 0.5;
+    background: purple;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+    color: white;
+  }
+  100% {
+    transform: scaleY(1) rotate(0deg);
+    opacity: 1;
+    background: linear-gradient(to right, pink, purple);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    color: black;
+  }
+}/*# sourceMappingURL=style.css.map */
