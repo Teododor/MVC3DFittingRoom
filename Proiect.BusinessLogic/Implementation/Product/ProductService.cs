@@ -97,9 +97,9 @@ namespace Proiect.BusinessLogic.Implementation.Product
 
 
 
-        public byte[] getProductImageService(int productId)
+        public byte[] getProductImageService(int ProductId)
         {
-            var image = UnitOfWork.Images.Get().Where(u => u.Id == productId).Select(image => image.ImageContent).FirstOrDefault();
+            var image = UnitOfWork.Images.Get().Where(u => u.Id == ProductId).Select(image => image.ImageContent).FirstOrDefault();
             return image;
 
 		}

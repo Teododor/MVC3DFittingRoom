@@ -93,9 +93,9 @@ namespace ProiectAcademie.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult DisplayProductImage(int productId)
+		public IActionResult DisplayProductImage(int ProductId)
 		{
-			var image = Service.getProductImageService(productId);
+			var image = Service.getProductImageService(ProductId);
 				return File(image, "image/png");
 		}
 	}

@@ -35,6 +35,8 @@ public partial class Product
 
     public int ProductDimensions { get; set; }
 
+    public int? ImageId { get; set; }
+
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     public virtual User CreatedByNavigation { get; set; } = null!;
@@ -42,6 +44,8 @@ public partial class Product
     public virtual Currency Currency { get; set; } = null!;
 
     public virtual ICollection<FavoriteProduct> FavoriteProducts { get; set; } = new List<FavoriteProduct>();
+
+    public virtual Image? Image { get; set; }
 
     public virtual User ModifiedByNavigation { get; set; } = null!;
 

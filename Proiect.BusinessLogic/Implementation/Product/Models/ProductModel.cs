@@ -16,5 +16,8 @@ namespace Proiect.BusinessLogic.Implementation.Product.Models
 		public Double Price { get; set; }
 
 		public int StockNo { get; set; }
+
+		public int ImageId { get; set; }
+	
 	}
 }
