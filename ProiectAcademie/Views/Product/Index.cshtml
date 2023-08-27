@@ -1,0 +1,96 @@
+﻿@inject Proiect.Common.DTOs.CurrentUserDto CurrentUser
+
+@model ProductPageModel
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="~/css/productsIndex.css" />
+<h1>Welcome To the Product Page</h1>
+
+<button type="button" class="btn btn-primary" onclick="location.href='/Product/FavoriteProducts'">View Favorite Products</button>
+<button type="button" class="btn btn-primary" onclick="location.href='/Product/Basket'">View Basket</button>
+
+<div class="container">
+	<div class="products">
+		@foreach (var product in Model.Products)
+		{
+			var isFavorite = Model.FavouriteProductIds.Contains(product.Id);
+			var favoriteClass = isFavorite ? "fas" : "far";
+			bool isAlreadyInCart = Model.UserProductsIds.Contains(product.Id);
+
+			<div class="product">
+				<div class="product-info">
+					<h3>@product.Name</h3>
+
+					@if (CurrentUser.IsAuthenticated)
+					{
+
+						<div class="rating" data-product-id="@product.Id">
+							<i class="far fa-star star" id="one-star"></i>
+							<i class="far fa-star star" id="two-stars"></i>
+							<i class="far fa-star star" id="three-stars"></i>
+							<i class="far fa-star star" id="four-stars"></i>
+							<i class="far fa-star star" id="five-stars"></i>
+						</div>
+					}
+				</div>
+
+
+				<img class="product-image" src=@Url.Action("DisplayProductImage", "Product", new{productId = product.Id}) alt="no image has been found">
+
+
+
+				<a>@product.Description</a>
+				<a>@product.Price</a>
+
+				@*<img src="../resources/white-t-shirt-1.png" alt="No Image has been found">*@
+
+
+				<div class="toast custom-toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" id="productToast">
+					<div class="toast-header">
+						<img src="path_to_your_icon.png" class="rounded mr-2" alt="icon"> <!-- Optional: Include an icon for better visual appeal -->
+						<strong class="mr-auto">Notification</strong>
+						<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="toast-body">
+						Product was added to cart.
+					</div>
+				</div>
+
+
+
+
+				@if (CurrentUser.IsAuthenticated)
+				{
+					<i class="@favoriteClass fa-heart heart" data-product-id="@product.Id" data-user-id="@CurrentUser.Id "></i>
+					<i class="fas fa-comment review-btn user-comment" data-product-id="@product.Id" data-user-id="@CurrentUser.Id"></i>
+					
+					var shoppingCartElementClass = !isAlreadyInCart ? "buy-icon" : "add-icon";
+
+					<i class="fa fa-thin fa-shopping-cart @shoppingCartElementClass" data-product-id="@product.Id" data-user-id="@CurrentUser.Id"></i>
+				}
+
+
+
+				<button class="btn btn-primary" @*data-toggle="modal" data-target="#reviewModal" data-product-id="@product.Id"*@>See All Reviews</button>
+			</div>
+		}
+	</div>
+</div>
+
+<!-- Review Modal -->
+<div id="reviewModal" class="modal">
+	<div class="modal-content">
+		<input id="ModalProductId" type="hidden" />
+		<input id="ModalCommentIsNew" type="hidden" />
+		<span class="close">&times;</span>
+		<h2>Leave a Review</h2>
+		<textarea id="WrittenTextArea" placeholder="Write your review here..." rows="4" style="width:100%;"></textarea>
+		<br>
+		<button class="btn btn-primary submit-button">Submit</button>
+	</div>
+</div>
+
+<script src="~/js/products.js"></script>
+<script src="~/js/modal.js"></script>

@@ -1,0 +1,32 @@
+﻿@model List<Proiect.BusinessLogic.Implementation.Comment.Models.CommentModel>
+
+
+<h1>Welcome to The Comments Page</h1>
+
+
+<table>
+   <tr>
+       <th>ID User</th>
+       <th>ID Product</th>
+       <th>Comment</th>
+       <th>Mark</th>
+   </tr>
+
+   @foreach(var comment in Model)
+   {
+       <tr>
+           <td>
+               @comment.UserId.ToString()
+           </td>
+           <td>
+               @comment.ProductId.ToString()
+           </td>
+           <td>
+               @comment.Review
+           </td>
+           <td>
+               @comment.Mark
+           </td>
+       </tr>
+   }
+</table>

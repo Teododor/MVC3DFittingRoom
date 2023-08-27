@@ -1,0 +1,44 @@
+﻿@model Proiect.BusinessLogic.Implementation.User.Models.AddUserModel;
+
+<h3 style="text-decoration-color: blue">This is the page where Admin can Add Individual Users</h3>
+
+
+
+
+<form asp-action="AddUser" asp-controller="User" method="Post">
+
+	<div class="form-group">
+		<label asp-for="FirstName" class="control-label"></label>
+		<input asp-for="FirstName" class="form-control" />
+		<span asp-validation-for="FirstName" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="LastName" class="control-label"></label>
+		<input asp-for="LastName" class="form-control" />
+		<span asp-validation-for="LastName" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Email" class="control-label"></label>
+		<input asp-for="Email" class="form-control"></input>
+		<span asp-validation-for="Email" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Password" class="control-label"></label>
+		<input asp-for="Password" class="form-control" />
+		<span asp-validation-for="Password" class="text-danger"></span>
+	</div>
+
+
+
+
+	<div class="form-group">
+		<input type="submit" value="Save" class="btn btn-primary" />
+	</div>
+
+
+
+
+</form>
