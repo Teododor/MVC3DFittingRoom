@@ -9,6 +9,9 @@
 <button type="button" class="btn btn-primary" onclick="location.href='/Product/FavoriteProducts'">View Favorite Products</button>
 <button type="button" class="btn btn-primary" onclick="location.href='/Product/Basket'">View Basket</button>
 
+
+@* <img src="@Url.Action("DisplayProductImage", "Product", new {ProductId = 1})"> *@
+
 <div class="container">
     <div class="products">
         @foreach (var product in Model.Products)
@@ -35,10 +38,10 @@
                 </div>
 
 
-                <img class="product-image" src=@Url.Action("DisplayProductImage", "Product", new{ProductId = product.ImageId}) alt="no image has been found">
+                <img class="product-image" src="@Url.Action("DisplayProductImage", "Product", new{ ProductId = product.ImageId})" alt="no image has been found">
 
-                <a>@product.Description</a>
-                <a>@product.Price</a>
+                @* <a> Product Description: @product.Description</a> *@
+                <a>Price: @product.Price</a>
 
                 <div class="toast custom-toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" id="productToast">
                     <div class="toast-header">

@@ -15,6 +15,7 @@ namespace Proiect.BusinessLogic.Implementation.Product.Mappings
 		{
 			CreateMap<UserProduct, ProductModel>()
 				.ForMember(a => a.Id, opt => opt.MapFrom(opt => opt.ProductId));
+				/*.ForMember(a => a.ImageId, opt => opt.MapFrom(opt => opt.ImageId));*/
 		}	
 	}
 }

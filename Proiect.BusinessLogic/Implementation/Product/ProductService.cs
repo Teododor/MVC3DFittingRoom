@@ -19,7 +19,8 @@ namespace Proiect.BusinessLogic.Implementation.Product
                 Name = product.Name,
                 Description = product.Description,
                 Price = (double)product.Price,
-                StockNo = (int)product.StockNo
+                StockNo = (int)product.StockNo,
+                ImageId = (int)product.ImageId,
 
             }).ToList();
 
