@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Implementation\Product\Validations\**" />
+    <Compile Remove="Implementation\User\Validations\**" />
+    <EmbeddedResource Remove="Implementation\Product\Validations\**" />
+    <EmbeddedResource Remove="Implementation\User\Validations\**" />
+    <None Remove="Implementation\Product\Validations\**" />
+    <None Remove="Implementation\User\Validations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="FluentValidation" Version="11.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Proiect.DataAccess\Proiect.DataAccess.csproj" />
+    <ProjectReference Include="..\Proiect.Entities\Proiect.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Implementation\Comment\Mappings\" />
+    <Folder Include="Implementation\Comment\Validations\" />
+    <Folder Include="Implementation\FavoriteProducts\Validations\" />
+    <Folder Include="Implementation\UserBasket\Mappings\" />
+    <Folder Include="Implementation\UserBasket\Validations\" />
+  </ItemGroup>
+
+</Project>

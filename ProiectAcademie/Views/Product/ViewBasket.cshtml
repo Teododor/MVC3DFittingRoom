@@ -1,0 +1,55 @@
+﻿@model ProductPageModel
+
+@inject Proiect.Common.DTOs.CurrentUserDto CurrentUser;
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<h2>Welcome To the Your Basket</h2>
+
+
+<table>
+    <tr>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>Product Description</th>
+        <th>Available Products</th>
+    </tr>
+    @foreach (var product in Model.Products)
+    {
+
+        <tr>
+            <td>
+                @product.Name
+            </td>
+            <td>
+                @product.Price
+            </td>
+            <td>
+                @product.Description
+            </td>
+            <td>
+                @product.StockNo
+            </td>
+            <td>
+                <button type="submit" class="btn btn-primary">Remove Product</button>
+            </td>
+            <td>
+                <button type="submit" class="btn btn-primary">See Product Details</button>
+            </td>
+        </tr>
+
+
+        @*        <div>
+    <p>@product.Name</p>
+    <p>@product.Price</p>
+    <p>@product.StockNo</p>
+    <p>@product.Description</p>
+
+    <button type="submit" class="btn btn-primary"> Remove Product</button>
+    </div>*@
+    }
+
+
+
+</table>
+
+<button type="submit" class="btn btn-success">Buy Products</button>

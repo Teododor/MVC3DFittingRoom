@@ -1,0 +1,27 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+#user-image {
+    width: 32.5px; 
+    height: 32.5px; 
+    display: inline-block; 
+    vertical-align: middle; 
+    padding:5px;
+}

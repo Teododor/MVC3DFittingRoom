@@ -1,0 +1,4 @@
+file controller -> download images (dupa file id)
+		-> 
+
+si de moficat in register poza doar cu id

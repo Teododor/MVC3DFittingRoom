@@ -1,0 +1,5 @@
+roluri : admin -> toate drepturile
+	       -> manager produse -> toate drepturile pe produse (creare, stergere, adaugare, editare)
+	       -> moderator -> toate drepturile asupra utilizatorului (crearea, stergere, adaugare, editare)
+	       ->comun (are dreptul de a cumpara ce e in cosul virtual, a da note produselor,a lasa un comentariu pentru produse)
+		-> utilizator nelogat

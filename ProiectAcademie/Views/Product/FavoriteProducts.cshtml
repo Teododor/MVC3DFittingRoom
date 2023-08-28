@@ -1,0 +1,86 @@
+﻿@model ProductPageModel;
+
+@inject Proiect.Common.DTOs.CurrentUserDto CurrentUser;
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<h2>Welcome To Your Favorite Products </h2>
+
+
+<table>
+    <tr>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>Product Description</th>
+        <th>Available Products</th>
+    </tr>
+
+    @foreach (var product in Model.Products)
+    {
+
+        <tr>
+            <td>
+                @product.Name
+            </td>
+            <td>
+                @product.Price
+            </td>
+            <td>
+                @product.Description
+            </td>
+            <td>
+                @product.StockNo
+            </td>
+            <td>
+                <a data-user-id="@CurrentUser.Id" data-product-id="@product.Id" href="@Url.Action("DeleteFavoriteFromFavPage", "FavoriteProducts", new {productId= product.Id})" class="btn btn-primary deleteFavoriteProductButton">Remove Product</a>
+            </td>
+            <td>
+                <button type="submit" class="btn btn-primary">See Product Details</button>
+            </td>
+        </tr>
+
+
+@*        <div>
+            <p>@product.Name</p>
+            <p>@product.Price</p>
+            <p>@product.StockNo</p>
+            <p>@product.Description</p>
+
+            <button type="submit" class="btn btn-primary"> Remove Product</button>
+        </div>*@
+    }
+</table>
+
+<button type="submit" class="btn btn-success">Remove all Favorite Products</button>
+
+
+
+<script type="text/javascript" src="~/js/favoriteProducts.js"></script>
+
+@*
+<table>
+    <tr>
+        <th>ID User</th>
+        <th>ID Product</th>
+        <th>Comment</th>
+        <th>Mark</th>
+    </tr>
+
+    @foreach (var comment in Model)
+    {
+        <tr>
+            <td>
+                @comment.UserId.ToString()
+            </td>
+            <td>
+                @comment.ProductId.ToString()
+            </td>
+            <td>
+                @comment.Review
+            </td>
+            <td>
+                @comment.Mark
+            </td>
+        </tr>
+    }
+</table>*@
