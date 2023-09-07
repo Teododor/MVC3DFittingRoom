@@ -1,10 +1,9 @@
-﻿using Proiect.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Proiect.Entities;
 
-public partial class UserProduct : IEntity
+public partial class UserProduct
 {
     public int UserId { get; set; }
 

@@ -2,11 +2,15 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Proiect.BusinessLogic.Base;
 using Proiect.BusinessLogic.Implementation;
+using Proiect.BusinessLogic.Implementation.City;
 using Proiect.BusinessLogic.Implementation.Comment;
+using Proiect.BusinessLogic.Implementation.Countries;
 using Proiect.BusinessLogic.Implementation.FavoriteProducts;
+using Proiect.BusinessLogic.Implementation.Image;
 using Proiect.BusinessLogic.Implementation.Implementation;
 using Proiect.BusinessLogic.Implementation.Product;
 using Proiect.BusinessLogic.Implementation.UserBasket;
+using Proiect.BusinessLogic.Implementation.UserRating;
 using Proiect.Common.DTOs;
 using Proiect.DataAccess;
 using Proiect.Entities;
@@ -39,7 +43,7 @@ builder.Services.AddScoped<ServiceDependencies>(provider =>
     return new ServiceDependencies(mapper, unitOfWork, currentUserDto);
 });
 
-// Register other services, such as UserService, if needed
+
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ControllerDependencies>();
 
@@ -52,6 +56,15 @@ builder.Services.AddScoped<CommentService>();
 builder.Services.AddScoped<FavoriteProductsService>();
 
 builder.Services.AddScoped<UserBasketService>();
+
+builder.Services.AddScoped<ImageService>();
+
+builder.Services.AddScoped<CountriesService>();
+
+builder.Services.AddScoped<CityService>();
+builder.Services.AddScoped<AddressLine>();
+
+builder.Services.AddScoped<UserRatingService>();
 
 builder.Services.AddAuthentication("ProiectAcademieCookies").AddCookie("ProiectAcademieCookies", options =>
 {

@@ -1,5 +1,6 @@
 ﻿using Proiect.Common;
 using Proiect.Entities;
+using System.Security;
 
 namespace Proiect.DataAccess
 {
@@ -34,6 +35,41 @@ namespace Proiect.DataAccess
         public IRepository<Image> images;
 
         public IRepository<Image> Images => images ?? (images = new BaseRepository<Image>(Context));
+
+        public IRepository<Permission> permissions;
+        public IRepository<Permission> Permissions => permissions ?? (permissions = new BaseRepository<Permission>(Context));
+
+        public IRepository<Role> roles;
+        public IRepository<Role> Roles => roles ?? (roles = new BaseRepository<Role>(Context));
+
+        public IRepository<RolePermission> rolepermissions;
+        public IRepository<RolePermission> RolePermissions => rolepermissions ?? (rolepermissions = new BaseRepository<RolePermission>(Context));
+
+        public IRepository<UserRoles> userroles;
+        public IRepository <UserRoles> UserRoles => userroles ?? (userroles = new BaseRepository<UserRoles>(Context));
+
+        public IRepository<UserReview> userreviews;
+        public IRepository<UserReview> UserReviews => userreviews ?? (userreviews = new BaseRepository<UserReview>(Context));
+        
+        public IRepository<ProductInfo> productinfo;
+        public IRepository<ProductInfo> ProductInfo => productinfo ?? (productinfo = new BaseRepository<ProductInfo>(Context));
+
+        public IRepository<Country> country;
+        public IRepository <Country> Country => country ?? (country = new BaseRepository<Country>(Context));     
+        
+        public IRepository <City> city;
+        public IRepository<City> City => city ?? (city = new BaseRepository<City>(Context));
+
+        public IRepository<AddressLine> addressline;
+
+        public IRepository<AddressLine> AddressLine =>
+            addressline ?? (addressline = new BaseRepository<AddressLine>(Context));
+
+
+        public IRepository<UserAddress> useraddress;
+
+        public IRepository<UserAddress> UserAddress =>
+            useraddress ?? (useraddress = new BaseRepository<UserAddress>(Context));
         public void SaveChanges()
         {
             Context.SaveChanges();

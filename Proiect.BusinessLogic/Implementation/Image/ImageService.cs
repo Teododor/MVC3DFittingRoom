@@ -16,7 +16,8 @@ namespace Proiect.BusinessLogic.Implementation.Image
 
         public byte[] GetImageById(int imageId)
         {
-            return UnitOfWork.Images.Get().Where(u => u.Id == imageId).Select(u => u.ImageContent).FirstOrDefault();
+            var image = UnitOfWork.Images.Get().Where(u => u.Id == imageId).Select(image => image.ImageContent).FirstOrDefault();
+            return image;
         }
     }
 }

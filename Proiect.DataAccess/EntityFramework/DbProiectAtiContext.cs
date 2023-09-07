@@ -44,6 +44,8 @@ public partial class DbProiectAtiContext : DbContext
 
     public virtual DbSet<ProductDiscount> ProductDiscounts { get; set; }
 
+    public virtual DbSet<ProductInfo> ProductInfos { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<TestTable> TestTables { get; set; }
@@ -58,6 +60,8 @@ public partial class DbProiectAtiContext : DbContext
 
     public virtual DbSet<UserProduct> UserProducts { get; set; }
 
+    public virtual DbSet<UserReview> UserReviews { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=TAXINTE\\SQLEXPRESS;Initial Catalog=dbProiectATI;Integrated Security=true;TrustServerCertificate=true;");
@@ -66,7 +70,7 @@ public partial class DbProiectAtiContext : DbContext
     {
         modelBuilder.Entity<AddressLine>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__AddressL__3214EC0765A9AEAD");
+            entity.HasKey(e => e.Id).HasName("PK__AddressL__3214EC0727BA9AC4");
 
             entity.ToTable("AddressLine");
 
@@ -78,7 +82,7 @@ public partial class DbProiectAtiContext : DbContext
 
         modelBuilder.Entity<City>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__City__3214EC07493D7635");
+            entity.HasKey(e => e.Id).HasName("PK__City__3214EC078B529D4A");
 
             entity.ToTable("City");
 
@@ -87,7 +91,7 @@ public partial class DbProiectAtiContext : DbContext
 
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(e => new { e.UserId, e.ProductId }).HasName("PK__Comment__DCC800203CEB5D53");
+            entity.HasKey(e => new { e.UserId, e.ProductId }).HasName("PK__Comment__DCC800208DB47066");
 
             entity.ToTable("Comment");
 
@@ -106,7 +110,7 @@ public partial class DbProiectAtiContext : DbContext
 
         modelBuilder.Entity<Country>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Country__3214EC07B0B6F9F2");
+            entity.HasKey(e => e.Id).HasName("PK__Country__3214EC0770EF5982");
 
             entity.ToTable("Country");
 
@@ -118,23 +122,19 @@ public partial class DbProiectAtiContext : DbContext
 
         modelBuilder.Entity<Currency>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Currency__3214EC07FE8BD76C");
+            entity.HasKey(e => e.Id).HasName("PK__Currency__3214EC07EFC35484");
 
             entity.ToTable("Currency");
 
             entity.Property(e => e.Code).HasMaxLength(10);
-            entity.Property(e => e.CurrencySymbol)
-                .HasMaxLength(10)
-                .HasColumnName("currency_symbol");
-            entity.Property(e => e.ExchangeRate)
-                .HasColumnType("decimal(5, 3)")
-                .HasColumnName("exchange_rate");
+            entity.Property(e => e.CurrencySimbol).HasMaxLength(10);
+            entity.Property(e => e.ExchangeRate).HasColumnType("decimal(5, 3)");
             entity.Property(e => e.FullName).HasMaxLength(250);
         });
 
         modelBuilder.Entity<Dimension>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Dimensio__3214EC0750C26683");
+            entity.HasKey(e => e.Id).HasName("PK__Dimensio__3214EC0725D09F74");
 
             entity.Property(e => e.BustSize).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.HipSize).HasColumnType("decimal(10, 2)");
@@ -170,7 +170,7 @@ public partial class DbProiectAtiContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__OrderDet__3214EC07C4795A76");
+            entity.HasKey(e => e.Id).HasName("PK__OrderDet__3214EC0755CC902E");
 
             entity.Property(e => e.OrderTime).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.Total).HasColumnType("decimal(10, 2)");
@@ -182,7 +182,7 @@ public partial class DbProiectAtiContext : DbContext
 
         modelBuilder.Entity<OrderItem>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__OrderIte__3214EC07152A43C9");
+            entity.HasKey(e => e.Id).HasName("PK__OrderIte__3214EC079D9F7EC7");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.OrderId)
@@ -201,7 +201,7 @@ public partial class DbProiectAtiContext : DbContext
 
         modelBuilder.Entity<PaymentType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__PaymentT__3214EC075C49DE81");
+            entity.HasKey(e => e.Id).HasName("PK__PaymentT__3214EC076CA1B7FA");
 
             entity.ToTable("PaymentType");
 
@@ -210,7 +210,7 @@ public partial class DbProiectAtiContext : DbContext
 
         modelBuilder.Entity<Permission>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Permissi__3214EC07C9041C61");
+            entity.HasKey(e => e.Id).HasName("PK__Permissi__3214EC07B81D14B0");
 
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.Name).HasMaxLength(100);
@@ -218,7 +218,7 @@ public partial class DbProiectAtiContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC07915FA7C5");
+            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC07BFE1D129");
 
             entity.ToTable("Product");
 
@@ -229,11 +229,6 @@ public partial class DbProiectAtiContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
 
-            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.ProductCreatedByNavigations)
-                .HasForeignKey(d => d.CreatedBy)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PRODUCT_USER_CB");
-
             entity.HasOne(d => d.Currency).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CurrencyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -241,22 +236,21 @@ public partial class DbProiectAtiContext : DbContext
 
             entity.HasOne(d => d.Image).WithMany(p => p.Products)
                 .HasForeignKey(d => d.ImageId)
-                .HasConstraintName("FK_Product_Image");
-
-            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.ProductModifiedByNavigations)
-                .HasForeignKey(d => d.ModifiedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PRODUCT_USER_MB");
+                .HasConstraintName("FK_Product_Images");
 
             entity.HasOne(d => d.ProductDiscountNavigation).WithMany(p => p.Products)
                 .HasForeignKey(d => d.ProductDiscount)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PRODUCT_DISCOUNT");
+
+            entity.HasOne(d => d.ProductInfo).WithMany(p => p.Products)
+                .HasForeignKey(d => d.ProductInfoId)
+                .HasConstraintName("FK_Product_ProductInfo");
         });
 
         modelBuilder.Entity<ProductDiscount>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ProductD__3214EC0745294A7B");
+            entity.HasKey(e => e.Id).HasName("PK__ProductD__3214EC0745FEA952");
 
             entity.ToTable("ProductDiscount");
 
@@ -269,9 +263,18 @@ public partial class DbProiectAtiContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<ProductInfo>(entity =>
+        {
+            entity.ToTable("ProductInfo");
+
+            entity.Property(e => e.Type)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Role__3214EC079A7C9D31");
+            entity.HasKey(e => e.Id).HasName("PK__Role__3214EC0739843F69");
 
             entity.ToTable("Role");
 
@@ -308,7 +311,7 @@ public partial class DbProiectAtiContext : DbContext
                         .HasConstraintName("FK__UserRoles__RoleI__0AF29B96"),
                     j =>
                     {
-                        j.HasKey("RoleId", "UserId").HasName("PK__UserRole__5B8242DE867AC1AC");
+                        j.HasKey("RoleId", "UserId").HasName("PK__UserRole__5B8242DE13527BC3");
                         j.ToTable("UserRoles");
                     });
         });
@@ -331,16 +334,19 @@ public partial class DbProiectAtiContext : DbContext
 
             entity.Property(e => e.BirthDate)
                 .HasDefaultValueSql("(CONVERT([date],getdate()))")
-                .HasColumnType("date")
-                .HasColumnName("birthDate");
+                .HasColumnType("date");
             entity.Property(e => e.ChatColor).HasMaxLength(100);
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.FirstName).HasMaxLength(500);
+            entity.Property(e => e.LastFailedAttempt)
+                .HasDefaultValueSql("('1970-01-01 00:00:00')")
+                .HasColumnType("smalldatetime");
             entity.Property(e => e.LastName).HasMaxLength(500);
+            entity.Property(e => e.MobileNo).HasMaxLength(100);
             entity.Property(e => e.ModifiedAt).HasColumnType("datetime");
+            entity.Property(e => e.NumberOfFailedAttempts).HasDefaultValueSql("((0))");
             entity.Property(e => e.PasswordHash).HasMaxLength(2500);
-            entity.Property(e => e.Telephone).HasMaxLength(100);
 
             entity.HasOne(d => d.ImageNavigation).WithMany(p => p.Users)
                 .HasForeignKey(d => d.ImageId)
@@ -349,7 +355,7 @@ public partial class DbProiectAtiContext : DbContext
 
         modelBuilder.Entity<UserAddress>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__UserAddr__3214EC07D26602C8");
+            entity.HasKey(e => e.Id).HasName("PK__UserAddr__3214EC07EA91ED74");
 
             entity.ToTable("UserAddress");
 
@@ -357,24 +363,28 @@ public partial class DbProiectAtiContext : DbContext
 
             entity.HasOne(d => d.AddressLine).WithMany(p => p.UserAddresses)
                 .HasForeignKey(d => d.AddressLineId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_USERADDRESS_ADDRESSLINE");
 
             entity.HasOne(d => d.City).WithMany(p => p.UserAddresses)
                 .HasForeignKey(d => d.CityId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_USERADDRESS_CITY");
 
             entity.HasOne(d => d.Country).WithMany(p => p.UserAddresses)
                 .HasForeignKey(d => d.CountryId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_USERADDRESS_COUNTRY");
 
             entity.HasOne(d => d.User).WithMany(p => p.UserAddresses)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_USERADDRESS_USER");
         });
 
         modelBuilder.Entity<UserDimension>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__UserDime__3214EC0746B15F88");
+            entity.HasKey(e => e.Id).HasName("PK__UserDime__3214EC0791A5A11F");
 
             entity.HasOne(d => d.Dimensions).WithMany(p => p.UserDimensions)
                 .HasForeignKey(d => d.DimensionsId)
@@ -387,7 +397,7 @@ public partial class DbProiectAtiContext : DbContext
 
         modelBuilder.Entity<UserPayment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__UserPaym__3214EC07C4A0C821");
+            entity.HasKey(e => e.Id).HasName("PK__UserPaym__3214EC07E822C4FF");
 
             entity.ToTable("UserPayment");
 
@@ -418,6 +428,21 @@ public partial class DbProiectAtiContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.UserProducts)
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("FK__UserProdu__UserI__33008CF0");
+        });
+
+        modelBuilder.Entity<UserReview>(entity =>
+        {
+            entity.HasKey(e => new { e.UserId, e.ProductId });
+
+            entity.HasOne(d => d.Product).WithMany(p => p.UserReviews)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserReviews_Product1");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserReviews)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserReviews_User1");
         });
 
         OnModelCreatingPartial(modelBuilder);

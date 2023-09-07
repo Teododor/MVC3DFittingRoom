@@ -21,35 +21,11 @@ namespace ProiectAcademie.Controllers
 			this._ProductService = ProductService;
 		}
 
-
-/*		[HttpGet]
-		public IActionResult FavoriteProductsPage()
-		{
-			var products = _ProductService.GetProducts();
-			var favoriteProducts = _FavoriteProductsService.GetUserFavouriteProductIds(CurrentUser.Id);
-			var userProductsIds = _ProductService.GetUserProductsIds(CurrentUser.Id);
-
-			var model = new ProductPageModel
-			{
-				Products = products,
-				FavouriteProductIds = favoriteProducts,
-				UserProductsIds = userProductsIds
-			};
-
-			return View(model);
-		}
-*/
-
-
 		[HttpPost]
 		public IActionResult AddFavorite([FromBody] AddFavoriteModel model)
 		{
-			/*			if(model is null)
-						{
-							return BadRequest("The Model is Null");
-						}*/
 			_FavoriteProductsService.AddProductToUserFavorites(model.UserId, model.ProductId);
-			return View();
+			return Ok();
 		}
 
 

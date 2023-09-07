@@ -1,16 +1,55 @@
 ﻿@inject Proiect.Common.DTOs.CurrentUserDto CurrentUser
-
 @model ProductPageModel
+
+@{
+    ViewData["Title"] = "Index";
+
+    Pager pager = new Pager();
+    string SearchText;
+    int? SelectedType;
+
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+        SearchText = pager.SearchText;
+        SelectedType = pager.SelectedType;
+    }
+}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <link rel="stylesheet" href="~/css/productsIndex.css" />
+<link rel="stylesheet" href="~/css/icons.css" />
+<link rel="stylesheet" href="~/css/productPrice.css">
+
 <h1>Welcome To the Product Page</h1>
+<div class ="products-page-icons">
+    <a href="/Product/FavoriteProducts" class="icon-link-heart">
+        <i class="fas fa-heart fa-2x"></i>
+    </a>
+    <a href="/Product/ViewBasket" class="icon-link-shopping-basket">
+        <i class="fas fa-shopping-basket fa-2x"></i>
+    </a>
+</div>
 
-<button type="button" class="btn btn-primary" onclick="location.href='/Product/FavoriteProducts'">View Favorite Products</button>
-<button type="button" class="btn btn-primary" onclick="location.href='/Product/ViewBasket'">View Basket</button>
+<div class="col-4 p-0 justify-content-end">
+    <div id="input-container-text">
+        <input class="form-control" id="searchText" type="text" />
+        <button id="SortingButton" data-myCustomValue="@pager.CurrentPage">Search</button>
+    </div>
+    <div id="input-container-select">
+        <select class="form-control" id="ClothesType" data-myCustomValue="@pager.CurrentPage">
+            <option id="isAllSelected">All Types</option>
+            @foreach (var productType in Model.ProductsInformation)
+            {
+                <option id="selectedValueType" value="@productType.Id">@productType.Type</option>
+            }
+        </select>
+    </div>
+</div>
 
-@* <img src="@Url.Action("DisplayProductImage", "Product", new {ProductId = 1})"> *@
-
+<partial name="_Pager" model="@pager" />
 
 <div class="container">
     <div class="products">
@@ -19,34 +58,28 @@
             var isFavorite = Model.FavouriteProductIds.Contains(product.Id);
             var favoriteClass = isFavorite ? "fas" : "far";
             bool isAlreadyInCart = Model.UserProductsIds.Contains(product.Id);
-
             <div class="product">
                 <div class="product-info">
                     <h3>@product.Name</h3>
-
                     @if (CurrentUser.IsAuthenticated)
                     {
-
-                        <div class="rating" data-product-id="@product.Id">
-                            <i class="far fa-star star" id="one-star"></i>
-                            <i class="far fa-star star" id="two-stars"></i>
-                            <i class="far fa-star star" id="three-stars"></i>
-                            <i class="far fa-star star" id="four-stars"></i>
-                            <i class="far fa-star star" id="five-stars"></i>
+                        <div class="rating" data-product-id="@product.Id" data-user-id="@CurrentUser.Id">
+                            <i class="far fa-star star" data-value="1" id="one-star"></i>
+                            <i class="far fa-star star" data-value="2" id="two-stars"></i>
+                            <i class="far fa-star star" data-value="3" id="three-stars"></i>
+                            <i class="far fa-star star" data-value="4" id="four-stars"></i>
+                            <i class="far fa-star star" data-value="5" id="five-stars"></i>
                         </div>
                     }
                 </div>
-                
-                 <img class="product-image" src="@Url.Action("DisplayProductImage", "Product", new {ProductId = product.ImageId})" alt="no image has been found"> 
-               @* <img class="product-image" src="@Url.Action("DisplayProductImage", "Product", new {ProductId = product.ImageId})" alt="No image has been found">*@
-              @*  <img class="product-image" src=@Url.Action("DisplayProductImage", "Product", new{ProductId = product.ImageId}) alt="no image has been found">
-*@
-                <a>@product.Description</a>
-                <a>@product.Price</a>
+
+                <img class="product-image" src="@Url.Action("DisplayProductImage", "Product", new { ProductId = product.ImageId })" alt="no image has been found">
+
+                <a style="margin-left:10px;" id="product-price">$@product.Price</a>
 
                 <div class="toast custom-toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" id="productToast">
                     <div class="toast-header">
-                        <img src="path_to_your_icon.png" class="rounded mr-2" alt="icon"> <!-- Optional: Include an icon for better visual appeal -->
+                        <img src="path_to_your_icon.png" class="rounded mr-2" alt="icon">
                         <strong class="mr-auto">Notification</strong>
                         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -57,22 +90,20 @@
                     </div>
                 </div>
 
-
-
-
                 @if (CurrentUser.IsAuthenticated)
                 {
-                    <i class="@favoriteClass fa-heart heart" data-product-id="@product.Id" data-user-id="@CurrentUser.Id "></i>
+                    <i class="@favoriteClass fa-heart heart" data-product-id="@product.Id" data-user-id="@CurrentUser.Id"></i>
                     <i class="fas fa-comment review-btn user-comment" data-product-id="@product.Id" data-user-id="@CurrentUser.Id"></i>
-
                     var shoppingCartElementClass = !isAlreadyInCart ? "buy-icon" : "add-icon";
-
-                    <i class="fa fa-thin fa-shopping-cart @shoppingCartElementClass" data-product-id="@product.Id" data-user-id="@CurrentUser.Id"></i>
+                    <i class="fas fa-shopping-cart @shoppingCartElementClass" data-product-id="@product.Id" data-user-id="@CurrentUser.Id"></i>
                 }
 
+                @* <button class="btn btn-primary">See All Reviews</button> *@
 
 
-                <button class="btn btn-primary" @*data-toggle="modal" data-target="#reviewModal" data-product-id="@product.Id"*@>See All Reviews</button>
+                    <button class="btn btn-icon" title="See All Reviews">
+                        <i class="fas fa-comments"></i>
+                    </button>
             </div>
         }
     </div>
@@ -93,3 +124,4 @@
 
 <script src="~/js/products.js"></script>
 <script src="~/js/modal.js"></script>
+<script src="~/js/filterProducts.js"></script>

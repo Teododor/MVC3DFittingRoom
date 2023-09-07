@@ -1,0 +1,62 @@
+﻿/* Custom Color Palette */
+:root {
+    --text: #040F1B;
+    --background: #e4effc;
+    --primary: #165AA7;
+    --secondary: #C0D9F7;
+    --accent: #1B6FD0;
+}
+
+/* Global Styles */
+body {
+    background-color: var(--background);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+}
+
+h3 {
+    color: var(--primary);
+}
+
+/* Form Styles */
+.form-container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label.control-label {
+    font-weight: bold;
+    color: var(--text);
+}
+
+input.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+    background-color: var(--background);
+}
+
+input[type="submit"] {
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    input[type="submit"]:hover {
+        background-color: var(--accent);
+    }
+
+.text-danger {
+    color: red;
+}

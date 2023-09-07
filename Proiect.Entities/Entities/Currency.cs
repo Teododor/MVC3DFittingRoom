@@ -11,7 +11,7 @@ public partial class Currency
 
     public string? Code { get; set; }
 
-    public string? CurrencySymbol { get; set; }
+    public string? CurrencySimbol { get; set; }
 
     public decimal? ExchangeRate { get; set; }
 

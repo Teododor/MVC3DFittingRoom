@@ -1,5 +1,16 @@
 ﻿@model List<Proiect.BusinessLogic.Implementation.User.Models.UserModel>
 
+@{
+    ViewData["Title"] = "Edit";
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if(ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;;
+    }
+}
+
 <h3>Here you can edit data about your users provided that you are an admin</h3>
 
 
@@ -8,6 +19,9 @@
 
 <a href="@Url.Action("AddUser", "User")" class="btn btn-success">Add User</a>
 
+<partial name="_Pager" model="@pager" />
+
+
 
 <table>
 <tr>
@@ -15,7 +29,9 @@
     <th>Last Name</th>
     <th>Email</th>
     <th>Actions</th>
-</tr><br />
+</tr>
+
+
 @foreach (var user in Model)
 {
     <tr>
@@ -25,7 +41,9 @@
             <td>
                 <a href="@Url.Action("EditUser", "User", new { id = user.Id })" class="btn btn-primary">Edit</a>
                 <a href="@Url.Action("DeleteUser", "User", new { id = user.Id })" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user? It will be permanently Deleted');">Delete</a>
+                <a href="@Url.Action("PromoteToAdmin", "User", new {id= user.Id})" class="btn btn-warning" onclick="return confirm('Are you sure you want to make this user an Admin. He will have absolute rights over the website">Make Admin</a>
             </td>
+    
     </tr>
     }
 </table>

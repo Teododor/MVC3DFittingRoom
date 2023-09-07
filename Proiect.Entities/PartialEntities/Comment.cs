@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proiect.Entities
+namespace Proiect.Entities;
+
+public partial class Comment: IEntity
 {
-	public partial class Comment: IEntity
-	{
-	}
 }

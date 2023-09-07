@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proiect.Entities.PartialEntities
+namespace Proiect.Entities;
+
+public partial class Image : IEntity
 {
-    public partial class Image : IEntity
-    {
-    }
 }

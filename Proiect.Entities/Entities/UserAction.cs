@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Proiect.Common;
+using System;
 using System.Collections.Generic;
 
 namespace Proiect.Entities;
 
-public partial class UserAction
+public partial class UserAction : IEntity
 {
     public int Id { get; set; }
 

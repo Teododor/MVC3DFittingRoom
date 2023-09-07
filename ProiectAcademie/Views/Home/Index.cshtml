@@ -1,12 +1,39 @@
-﻿@{
+﻿@model Proiect.Entities.Image;
+@inject Proiect.Common.DTOs.CurrentUserDto CurrentUser;
+
+<link rel="stylesheet" href="~/css/mainPage.css" />
+
+<body>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-  @*  <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
 
 
-    <img src="@ViewData["../resources/white-t-shirt-1.png"]" alt="the image has not been found" />
 
-</div>
+<link rel="stylesheet" href="~/css/WelcomePage.css" />
+
+<img id="clothes-background-image" src="@Url.Action("DownloadImage", "Image", new { imageId = 3 })" alt="no image has been found" />
+
+    <div id="display-user-data">
+        @if (!CurrentUser.IsAuthenticated)
+@*        {
+            @CurrentUser.Email
+
+            <img id="user-image" src="@Url.Action("DisplayUserImageIcon", "User")" />
+            <a asp-controller="UserAccount" asp-action="Logout">Log Out</a>
+        }
+        else*@
+        {
+            <div id="button-container">
+                <h2>Welcome to Our Website!</h2>
+                <p>Get started by logging in or registering a new account.</p>
+                <a style="font-weight:bold;" class="button" asp-controller="UserAccount" asp-action="Login">Log In</a>
+                <a style="font-weight:bold;" class="button" asp-controller="UserAccount" asp-action="Register">Register</a>
+            </div>
+
+        }
+    </div>
+</body>
+
+    

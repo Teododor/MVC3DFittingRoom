@@ -1,0 +1,17 @@
+﻿/* Style for the background image */
+#clothes-background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+    object-position: 50% 50%;
+    opacity: 0.5;
+}
+body {
+    background-size: 100% 100%; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

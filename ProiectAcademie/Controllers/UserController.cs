@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Proiect.BusinessLogic.Implementation;
 using Proiect.BusinessLogic.Implementation.Implementation;
 using Proiect.BusinessLogic.Implementation.User.Models;
 using Proiect.Common.DTOs;
 using Proiect.WebApp.Code.Base;
+using ProiectAcademie.Models;
 
 namespace ProiectAcademie.Controllers
 {
@@ -34,9 +36,16 @@ namespace ProiectAcademie.Controllers
         }
 
         /*        [Authorize(Roles = "Admin")]*/
-        public IActionResult Edit()
+        public IActionResult Edit(int pg =1)
         {
             var users = Service.GetUsers();
+
+            int recsCount = 0;
+            int pageSize = 8;
+            var pager = new Pager(recsCount, pg, pageSize);
+            this.ViewBag.Pager = pager;
+
+
             return View(users);
         }
 
@@ -90,10 +99,43 @@ namespace ProiectAcademie.Controllers
         [HttpGet]
         public IActionResult DisplayUserImageIcon()
         {
-            var image = USERACCOUNTSERVICE.getUserImageService();
+            var image = USERACCOUNTSERVICE.getCurrentUserImageService();
             return File(image,"image/png");
         }
 
+        [HttpGet]
+        public IActionResult UserEditAccount()
+        {
+            var user = Service.GetUserById(CurrentUser.Id);
+            var editUser = new EditUserByUserModel
+            {
+                Id = CurrentUser.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                MobileNo = user.MobileNo,
+            };
+            return View(editUser);
+        }
 
+        [HttpPost]
+        public IActionResult UserEditAccount(EditUserByUserModel model)
+        {
+            Service.EditUserByUserService(model);
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult UserEditAccountByAdmin()
+        {
+/*            var userID = Service.GetUserByEmail();
+*/            return View();
+        }
+
+
+
+/*
+        [HttpGet*/
     }
 }

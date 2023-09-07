@@ -1,18 +1,21 @@
-﻿@model Proiect.BusinessLogic.Implementation.Implementation.Account.Models.LoginModel;
+﻿@*@model Proiect.BusinessLogic.Implementation.Implementation.Account.Models.LoginModel;
 
 
 @{
 	ViewData["Title"] = "Login";
 }
 
-<h1>Login</h1>
+<link rel="stylesheet" href="~/css/LoginPage.css" />
 
-<h4>LoginVM</h4>
-
-<hr/>
+<img id="background-image-login" src="@Url.Action("DownloadImage", "Image", new {imageId = 38})" alt="No Image has been found" />
 
 <div class="row">
 
+	@if (Model.isAccountTemporarilyBanned)
+	{
+		<div>User Account is Temporarily Banned</div>
+	}
+	else
 	@if (Model.AreCredentialsInvalid)
 	{
 		<div>Invalid Credentials</div>
@@ -40,6 +43,124 @@
 
 <div>
 	<a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}*@
+
+
+
+@*
+@model Proiect.BusinessLogic.Implementation.Implementation.Account.Models.LoginModel;
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<link rel="stylesheet" href="~/css/LoginPage.css" />
+
+<img id="background-image-login" src="@Url.Action("DownloadImage", "Image", new {imageId = 38})" alt="No Image has been found" />
+
+<div class="container">
+    <div class="form-wrapper">
+
+        @if (Model.isAccountTemporarilyBanned)
+        {
+            <div>User Account is Temporarily Banned</div>
+        }
+        else
+        @if (Model.AreCredentialsInvalid)
+        {
+            <div>Invalid Credentials</div>
+        }
+
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+*@
+
+
+
+@model Proiect.BusinessLogic.Implementation.Implementation.Account.Models.LoginModel;
+
+@{
+	ViewData["Title"] = "Login";
+}
+
+<link rel="stylesheet" href="~/css/LoginPage.css" />
+
+
+	<img id="background-image-login" src="@Url.Action("DownloadImage", "Image", new {imageId = 38})" alt="No Image has been found" />
+
+
+
+<div class="row">
+	<div class="col-md-4">
+
+
+		@if (Model.isAccountTemporarilyBanned)
+		{
+			<div id="bannedUser">User Account is Temporarily Banned</div>
+		}
+		else
+		@if (Model.AreCredentialsInvalid)
+		{
+			<div id="invalidCredentials">Invalid Credentials</div>
+		}
+
+		<form asp-action="Login">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			
+			<div class="form-group">
+				<label asp-for="Email" class="control-label"></label>
+				<input asp-for="Email" class="form-control" />
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="Password" class="control-label"></label>
+				<input asp-for="Password" type="password" class="form-control" />
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-primary" />
+			</div>
+		</form>
+
+
+	</div>
 </div>
 
 @section Scripts {

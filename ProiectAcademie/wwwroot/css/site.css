@@ -25,3 +25,38 @@ body {
     vertical-align: middle; 
     padding:5px;
 }
+
+
+
+/*
+
+@import url('colorPalette.css');*/
+
+
+
+/*.custom-navbar {
+    background-color: #007bff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+    .custom-navbar .navbar-brand {
+        color: white !important;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .custom-navbar .nav-item a {
+        color: var(--background) !important;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+    }
+
+        .custom-navbar .nav-item a:hover {
+            color: var(--accent) !important;
+            transition: color 0.3s ease-in-out;
+        }
+
+    .custom-navbar .navbar-toggler-icon {
+        filter: invert(100%);
+    }
+*/

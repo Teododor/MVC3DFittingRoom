@@ -1,0 +1,59 @@
+﻿@model Proiect.BusinessLogic.Implementation.User.Models.EditUserByUserModel;
+@inject Proiect.Common.DTOs.CurrentUserDto CurrentUser;
+
+
+<link rel="stylesheet" href="~/css/EditUserByUser.css">
+
+<h3>This is the Page Where I will make User Modifications</h3>
+<div class="page-container">
+    <div class="main-content">
+        <div class="row">
+            <div class="col-md-4 form-container">
+                <form asp-action="UserEditAccount" asp-controller="User" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CurrentPassword" class="control-label"></label>
+                        <input asp-for="CurrentPassword" type="password" class="form-control" />
+                        <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewPassword" class="control-label"></label>
+                        <input asp-for="NewPassword" type="password" class="form-control" />
+                        <span asp-validation-for="NewPassword" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConfirmNewPassword" class="control-label"></label>
+                        <input asp-for="ConfirmNewPassword" type="password" class="form-control" />
+                        <span asp-validation-for="ConfirmNewPassword" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MobileNo" class="control-label"></label>
+                        <input asp-for="MobileNo" class="form-control" />
+                        <span asp-validation-for="MobileNo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Image" class="control-label">Upload Image</label>
+                        <input asp-for="Image" type="file" id="editImageInput" class="form-control" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

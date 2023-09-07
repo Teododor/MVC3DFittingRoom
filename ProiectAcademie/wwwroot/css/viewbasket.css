@@ -1,0 +1,111 @@
+﻿/* Color Palette */
+html {
+    --text: #040F1B;
+    --background: #e4effc;
+    --primary: #165AA7;
+    --secondary: #C0D9F7;
+    --accent: #1B6FD0;
+}
+
+/* General Styles */
+body {
+    background-color: var(--background);
+    color: var(--text);
+    font-family: 'Arial', sans-serif;
+}
+
+h2 {
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--secondary);
+}
+
+th {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* Button Styles */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-success {
+    background-color: var(--accent);
+    color: white;
+}
+
+.btn i.fas {
+    font-size: 20px;
+}
+
+/* Hover Effects */
+.btn:hover {
+    filter: brightness(90%);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent);
+}
+
+.btn-success:hover {
+    background-color: var(--primary);
+}
+
+
+
+.btn {
+    padding: 12px 16px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+/* Specific styles for the success button */
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Adding a shadow for depth */
+.btn-success {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon styles */
+.btn i.fas,
+.btn i.material-icons {
+    font-size: 20px;
+}
+
+/* Hover effects */
+.btn-success:hover {
+    background-color: #218838;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

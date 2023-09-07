@@ -1,61 +1,124 @@
 ﻿@model Proiect.BusinessLogic.Implementation.Implementation.Account.Models.RegisterModel
 
+@inject Proiect.BusinessLogic.Implementation.Image.ImageService ImageService
+
 @{
-	ViewData["Title"] = "View";
+    ViewData["Title"] = "View";
 }
+<link rel="stylesheet" href="~/css/register.css">
 
-<h1>View</h1>
-<h4>RegisterVM</h4>
-
-<hr />
+<img id="background-image-register" src="@Url.Action("DownloadImage", "Image", new { imageId = 19})" alt="no image has been found" />
 
 <div class="row">
-	<div class="col-md-4">
-		<form asp-action="Register" asp-controller="UserAccount" method="post" enctype="multipart/form-data">
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<div class="form-group">
-				<label asp-for="Email" class="control-label"></label>
-				<input asp-for="Email" class="form-control" />
-				<span asp-validation-for="Email" class="text-danger"></span>
-			</div>
+    <div class="col-md-4">
+        <form asp-action="Register" asp-controller="UserAccount" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
 
-			<div class="form-group">
-				<label asp-for="Password" class="control-label"></label>
-				<input asp-for="Password" type="password" class="form-control" />
-				<span asp-validation-for="Password" class="text-danger"></span>
-			</div>
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
 
-			<div class="form-group">
-				<label asp-for="FirstName" class="control-label"></label>
-				<input asp-for="FirstName" class="form-control" />
-				<span asp-validation-for="FirstName" class="text-danger"></span>
-			</div>
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
 
-			<div class="form-group">
-				<label asp-for="LastName" class="control-label"></label>
-				<input asp-for="LastName" class="form-control" />
-				<span asp-validation-for="LastName" class="text-danger"></span>
-			</div>
 
-			<div class="form-group">
-				<label asp-for="Image" class="control-labbel">Upload Image</label>
-				<input asp-for="Image" id="imageInput" class="form-control" />
-				<span asp-validation-for="Image" class="text-danger"></span>
-			</div>
 
-			<div class="form-group">
-				<input type="submit" value="Save" class="btn btn-primary" />
-			</div>
-		</form>
-	</div>
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Image" class="control-label">Upload Image</label>
+                <input asp-for="Image" id="imageInput" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MobileNo" class="control-label"></label>
+                <input asp-for="MobileNo" class="form-control" />
+                <span asp-validation-for="MobileNo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="City" id="citynameid" class="control-label">City</label>
+                <select asp-for="City" asp-items="@(new SelectList(ViewBag.AvailableCities))">
+                    <option class="isNothingSelected">Choose Your City</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CountryName" id="countrynameid" class="control-label">Country</label>
+                <select asp-for="CountryName" asp-items="@(new SelectList(ViewBag.AvailableCountries))">
+                    <option class="isNothingSelected">Choose Your Country</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Street" class="control-label">Street</label>
+                <input asp-for="Street" id="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Block" class="control-label">Block</label>
+                <input asp-for="Block" id="Block" class="form-control" />
+                <span asp-validation-for="Block" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Number" class="control-label">Number</label>
+                <input asp-for="Number" id="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Entrace" class="control-label">Entrace</label>
+                <input asp-for="Entrace" id="Entrace" class="form-control" />
+                <span asp-validation-for="Entrace" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PostalCode" class="control-label">PostalCode</label>
+                <input asp-for="PostalCode" id="PostalCode" class="form-control" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
 </div>
-<div>
-	<a asp-action="Index">Back to List</a>
-</div>
+
 
 
 @section Scripts {
-	@{
-		await Html.RenderPartialAsync("_ValidationScriptsPartial");
-	}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+
+
+

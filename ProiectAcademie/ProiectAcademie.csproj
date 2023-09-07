@@ -24,4 +24,5 @@
     <ProjectReference Include="..\Proiect.BusinessLogic\Proiect.BusinessLogic.csproj" />
   </ItemGroup>
 
+
 </Project>

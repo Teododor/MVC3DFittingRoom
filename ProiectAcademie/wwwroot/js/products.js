@@ -13,9 +13,26 @@
 
     var closeButton = document.getElementsByClassName("close")[0];
 
+
+/*
+    var priceRange = document.getElementById("priceRange");
+    console.log("The HTML of the Price Range is " + priceRange);
+    priceRange.addEventListener('change', (() => {
+        console.log("Changed state of the Price");
+        var price = document.getElementById('priceRange').value;
+        document.getElementById('currentPrice').innerText = price;
+
+        console.log("THe Price is: " + price);
+    });
+
+    function upatePrice() {
+        var price = document.getElementById('priceRange').value;
+        document.getElementById('currentPrice').innerText = price;
+    }
+*/
+
     closeButton.onclick = () => {
         modal.style.display = "none";
-        console.log("CLICKED THE CLOSE BUTTON");
     }
 
     closeButton.addEventListener('click', () => {
@@ -23,12 +40,7 @@
     });
 
     span.addEventListener('click', () => {
-        console.log("Clicked the span with queryselector .close");
         modal.style.display = 'none';
-/*
-        let textCamp = document.getElementById("WrittenTextArea");
-        textCamp.value = "";
-        textCamp.innerHTML = "";*/
 
     });
 
@@ -50,20 +62,19 @@
 
     btnSubmit.addEventListener('click', () => {
 
+        console.log("Clicked Submit Button");
+
         const reviewText = textarea.value;
         var productId = modalProductIdInput.value;
 
-        //TBD : CHESTIA ASTA SE VA MODIFICA CA SA NU VERIFIC DE FIECARE DATA MODALCOMMENTISNEW.VALUE == "TRUE" SI IL VOI DA CA BOOOLEAN
-
-        let endpoint = (modalCommentIsNew.value == "true") ?  '/Product/ModifyReview' : '/Product/GiveReview' ;
-
+        let endpoint = (modalCommentIsNew.value == "true") ? '/Product/ModifyReview' : '/Product/GiveReview';
 
         fetch(endpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: json.stringify({
+            body: JSON.stringify({
                 review: reviewText,
                 productId: Number(productId)
             })
@@ -82,6 +93,9 @@
                 console.error("Error: ", error);
             });
 
+
+        modal.style.display = 'none';
+
     });
     comments.forEach(comment => {
 
@@ -96,8 +110,6 @@
 
 
     hearts.forEach(heart => {
-
-        console.log("Entered Hearts forEach");
 
         heart.addEventListener('click', () => {
             const productId = +heart.getAttribute('data-product-id');
@@ -148,20 +160,17 @@
 
     baskets.forEach(basket => {
 
-        console.log("Entered Products forEach");
-
-
         basket.addEventListener('click', () => {
 
-            const productId = basket.getAttribute('data-product-id');
-            const userId = basket.getAttribute('data-user-id');
+            const productId = +basket.getAttribute('data-product-id');
+            const userId = +basket.getAttribute('data-user-id');
 
             if (basket.classList.contains("buy-icon")) {
 
                 basket.classList.remove("buy-icon");
                 basket.classList.add("add-icon");
 
-                const response = fetch('/UserBasket/AddProduct', {
+               /* const response =*/ fetch('/UserBasket/AddProduct', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -202,64 +211,107 @@
             }
         });
 
-
-
         var CLOSEBUTTON = document.getElementsByClassName("close");
 
         CLOSEBUTTON.onclick = () => {
             modal.style.display = "none";
-            console.log("CLICKED THE CLOSE BUTTON");
         }
     })
+
+/*    let userRating; // Assume this is fetched from the server
+
+    fetch(`/UserRating/GetUserRating?userId=${userId}&productId=${productId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                userRating = data; // Save the rating in the variable
+                updateStars(userRating);  // Call the updateStars function here
+            } else {
+                console.log("Rating not found");
+            }
+        })
+        .catch(error => console.error("Fetch Error:", error));
+
+*/
 
 
     const ratings = document.querySelectorAll('.rating');
 
     ratings.forEach(rating => {
-        const productId = rating.getAttribute('data-product-id');
-        const userId = rating.getAttribute('data-user-id');
+
 
         const stars = rating.querySelectorAll('.star');
-        console.log("Stars");
-        console.log(stars);
 
         stars.forEach((star, index) => {
+            var productId = +star.getAttribute('data-product-id');
+            var userId = +star.getAttribute('data-user-id');
+            var numberOfStars = 0;
 
-            /*            var numberOfStars = 0;
-            
-                        console.log("Star " + star);
-                        if (star.id == "one-star") {
-                            console.log("one-star");
-                            numberOfStars = 1;
-                        }
-                        else if (star.id == "two-stars") {
-                            console.log("two-stars");
-                            numberOfStars = 2;
-                        }
-                        else if (star.id == "three-stars") {
-                            console.log("three-stars");
-                            numberOfStars = 3;
-                        }
-                        else if (star.id == "four-stars") {
-                            console.log("four-stars");
-                            numberOfStars = 4;
-                        }
-                        else if (star.id == "five-stars") {
-                            console.log("five-stars");
-                            numberOfStars = 5;
-                        }
-            
-            
-                        console.log("The Product has " + numberOfStars + " STARS");*/
+            fetch(`/UserRating/GetUserRating?userId=${userId}&productId=${productId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        console.log("User Rating:", data);
+                    } else {
+                        console.log("Rating not found");
+                    }
+                })
+                .catch(error => console.error("Fetch Error:", error));
 
 
 
             star.addEventListener('click', () => {
-                for (let i = 0; i <= index; i++) {
+                var productId = +rating.getAttribute('data-product-id');
+                var userId = +rating.getAttribute('data-user-id');
+                if (star.id == "one-star") {
+                    console.log("one-star");
+                    numberOfStars = 0;
+                }
+                else if (star.id == "two-stars") {
+                    console.log("two-stars");
+                    numberOfStars = 1;
+                }
+                else if (star.id == "three-stars") {
+                    console.log("three-stars");
+                    numberOfStars = 2;
+                }
+                else if (star.id == "four-stars") {
+                    console.log("four-stars");
+                    numberOfStars = 3;
+                }
+                else if (star.id == "five-stars") {
+                    console.log("five-stars");
+                    numberOfStars = 4;
+                }
+
+                fetch('/UserRating/AddRatingFromUser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userId: userId,
+                        productId: productId,
+                        numberOfStars: numberOfStars
+                    })
+                })
+                    .then(res => res.json())
+                    .then(res => console.log(res))
+                    .catch(error => console.error("Fetch Error: ", error));
+
+                console.log("Finished Giving Review To Product By User");
+
+
+            })
+
+
+
+            star.addEventListener('click', () => {
+                for (let i = 0; i <= numberOfStars; i++) {
                     stars[i].classList.remove('far');
                     stars[i].classList.add('fas');
                 }
-                for (let i = index + 1; i < 5; i++) {
+                for (let i = numberOfStars + 1; i < 5; i++) {
                     stars[i].classList.remove('fas');
                     stars[i].classList.add('far');
                 };

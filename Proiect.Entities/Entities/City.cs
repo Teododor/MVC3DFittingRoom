@@ -7,9 +7,9 @@ public partial class City
 {
     public int Id { get; set; }
 
-    public string Name { get; set; } = null!;
+    public string? Name { get; set; }
 
-    public int CountryId { get; set; }
+    public int? CountryId { get; set; }
 
     public virtual ICollection<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
 }

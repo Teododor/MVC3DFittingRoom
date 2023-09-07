@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Abstractions;
+using Proiect.BusinessLogic.Implementation.Countries;
 using Proiect.BusinessLogic.Implementation.Implementation;
 using Proiect.BusinessLogic.Implementation.Implementation.Account.Models;
 using Proiect.Common.DTOs;
 using Proiect.WebApp.Code.Base;
-using ProiectAcademie.Models;
 using System.Security.Claims;
+using Proiect.BusinessLogic.Implementation.City;
+using static Proiect.BusinessLogic.Implementation.Implementation.UserAccountService;
 
 namespace ProiectAcademie.Controllers
 {
@@ -14,17 +15,37 @@ namespace ProiectAcademie.Controllers
 	{
 
 		protected readonly UserAccountService Service;
+		protected readonly CountriesService countriesService;
+		protected readonly CityService cityService;
 
-		public UserAccountController(ControllerDependencies dependencies, UserAccountService service)
+
+
+		public List <string?> GetAvailableCountries()
+		{
+			var availableCountries = countriesService.GetAvailableCountries();
+			return availableCountries;
+		}
+
+		public List<string?> GetAvailableCities()
+		{
+			var availableCities = cityService.GetAllCities();
+			return availableCities;
+		}
+
+		public UserAccountController(ControllerDependencies dependencies, UserAccountService service, CountriesService countriesservice, CityService cityservice)
 		   : base(dependencies)
 		{
 			this.Service = service;
+			this.countriesService = countriesservice;
+			this.cityService = cityservice;
 		}
 
 		[HttpGet]
 		public IActionResult Register()	
 		{
 			var model = new RegisterModel();
+			this.ViewBag.AvailableCountries = GetAvailableCountries();
+			this.ViewBag.AvailableCities = GetAvailableCities();
 			return View(model);
 		}
 
@@ -35,15 +56,16 @@ namespace ProiectAcademie.Controllers
 			{
 				return View("Error_NotFound");
 			}
-/*			var newModel = new RegisterModel
-			{
-				Email = model.Email,
-				FirstName = model.FirstName,
-				LastName = model.LastName,
-				Image = ConvertIFormFileToByteArray(model.Image)
-			};*/
 
-			Service.RegisterNewUser(model);
+			this.ViewBag.AvailableCountries = GetAvailableCountries();
+			this.ViewBag.AvailableCities = GetAvailableCities();
+
+			ServiceResult result =  Service.RegisterNewUser(model);
+			if (!result.Success)
+			{
+				ModelState.AddModelError(string.Empty, result.Message);
+				return View(model);
+			}
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -59,13 +81,19 @@ namespace ProiectAcademie.Controllers
 		{
 			var user = Service.Login(model.Email, model.Password);
 
+			if(user.IsTemporarilyBanned == true)
+			{
+				model.isAccountTemporarilyBanned = true;
+				return View(model);
+			}
+
 			if (!user.IsAuthenticated)
 			{
 				model.AreCredentialsInvalid = true;
 				return View(model);
 			}
 
-
+			
 
 			await LogIn(user);
 

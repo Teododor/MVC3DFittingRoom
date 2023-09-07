@@ -1,4 +1,5 @@
-﻿using Proiect.BusinessLogic.Base;
+﻿using Microsoft.AspNetCore.Http;
+using Proiect.BusinessLogic.Base;
 using Proiect.BusinessLogic.Implementation.User.Models;
 using System.Data.Common;
 
@@ -32,6 +33,11 @@ namespace Proiect.BusinessLogic.Implementation
 
 		}
 
+		public Entities.User? GetUserByEmail(string email) 
+		{
+			return UnitOfWork.Users.Get().FirstOrDefault(p => p.Email == email);
+		}
+
 		public EditUserModel? GetEditUserModelById(int id)
 		{
 			var user = GetUserById(id);
@@ -61,7 +67,6 @@ namespace Proiect.BusinessLogic.Implementation
 			user.PasswordHash = Implementation.Account.Hashing.AesEncryption.Encrypt(user.PasswordHash);
 
 			user.ModifiedBy = user.Id;
-			user.Telephone = "2342342342";
 
 			try
 			{
@@ -84,6 +89,50 @@ namespace Proiect.BusinessLogic.Implementation
 		{
 			var user = GetUserById(id);
 			UnitOfWork.Users.Delete(user);
+			UnitOfWork.SaveChanges();
+		}
+        public static byte[] ConvertIFormFileToByteArray(IFormFile formFile)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                formFile.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
+
+        public void EditUserByUserService(EditUserByUserModel model)
+		{
+			var image = new Entities.Image();
+			image.ImageContent = ConvertIFormFileToByteArray(model.Image);
+			image.ImageName = "User Image";
+			image.ContentType = "image/png";
+
+			UnitOfWork.Images.Insert(image);
+			UnitOfWork.SaveChanges();
+
+			var user = new Entities.User
+			{
+				
+				FirstName = model.FirstName,
+				LastName = model.LastName,
+				PasswordHash = Implementation.Account.Hashing.AesEncryption.Encrypt( model.NewPassword ),
+				Email = model.Email,
+				MobileNo = model.MobileNo,
+				ImageId = image.Id,
+				CreatedAt = DateTime.Now,
+				ModifiedAt = DateTime.Now,
+				NumberOfFailedAttempts = 0,
+
+			};
+
+			var currentUser = UnitOfWork.Users.Get()
+				.Where(u => u.Id == CurrentUser.Id)
+				.FirstOrDefault();
+
+
+				
+
+			UnitOfWork.Users.Update(user);
 			UnitOfWork.SaveChanges();
 		}
 	}
